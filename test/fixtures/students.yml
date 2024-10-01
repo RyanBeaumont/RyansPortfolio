@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  major: MyString
+  minor: MyString
+  graduation_date: 2024-10-01
+
+two:
+  first_name: MyString
+  last_name: MyString
+  major: MyString
+  minor: MyString
+  graduation_date: 2024-10-01
