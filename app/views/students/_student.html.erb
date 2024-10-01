@@ -1,7 +1,7 @@
 <div id="<%= dom_id student %>">
   <p>
     <% if student.avatar.attached? %>
-      <%= image_tag student.avatar, style: "max-width: 150px;" %>
+      <%= image_tag(student.avatar, style: "max-width: 150px;") %>
     <% else %>
       <%= image_tag "DefaultStudent.png", style: "max-width: 150px;" %>
     <% end %>
@@ -25,6 +25,11 @@
   <p>
     <strong>Minor:</strong>
     <%= student.minor %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= student.student_email %>
   </p>
 
   <p>
