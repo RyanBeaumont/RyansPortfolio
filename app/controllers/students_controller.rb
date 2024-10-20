@@ -3,7 +3,29 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
+    Rails.logger.info "Params: #{params.inspect}"
+    @search_params = params[:search] || {}
     @students = Student.all
+
+    Rails.logger.info "Search Params: #{@search_params.inspect}"
+
+    if params[:show_all] == "true"
+      @students = Student.all
+    else
+      if params[:major].present?
+        @students = @students.where(major: params[:major])
+      end
+      if params[:graduation_options] != "Don't Filter By Date" && params[:graduation_options].present? && @search_params[:graduation_date].present?
+        Rails.logger.info "START SEARCH #{params[:graduation_options]}"
+        if params[:graduation_options] === "Graduate Before"
+          @students = @students.where("graduation_date < ?", Date.parse(@search_params[:graduation_date]))
+        else
+          @students = @students.where("graduation_date > ?", Date.parse(@search_params[:graduation_date]))
+        end
+      end
+
+      
+    end
   end
 
   # GET /students/1 or /students/1.json
@@ -65,6 +87,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :major, :minor, :graduation_date, :avatar, :student_email)
+      params.require(:student).permit(:first_name, :last_name, :major, :minor, :graduation_date, :avatar, :student_email, :graduation_options)
     end
 end
