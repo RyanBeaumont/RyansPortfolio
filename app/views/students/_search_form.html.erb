@@ -1,0 +1,26 @@
+<%= form_with(url: students_path, method: :get, local: true, class: "form-inline") do |form| %>
+    <div class="d-flex flex-row mb-3">
+    <div class="mr-3">
+      <%= form.label :major, "Select Major", class: "form-label" %>
+      <%= form.select :major, options_for_select(Student::VALID_MAJORS, params.dig(:search, :major)), {prompt: "Any Major"}, class: "form-control" %>
+    </div>
+  
+    <div class="mr-3">
+      <%= form.label :graduation_options, "Graduation Options", class: "form-label" %>
+      <%= form.select :graduation_options, options_for_select(Student::DATE_SEARCH_OPTIONS, params.dig(:search, :graduation_options)), {prompt: "Don't Filter By Date"}, class: "form-control" %>
+    </div>
+  
+    <div class="mr-3">
+      <%= form.label :graduation_date, "Graduation Date", class: "form-label"%>
+      <%= date_field_tag 'search[graduation_date]', params.dig(:search, :graduation_date), class: "form-control" %>
+    </div>
+  
+    
+    </div>
+
+    <div class="mr-3">
+      <%= form.submit "Search", class: "btn btn-primary mb-2" %>
+      <%= link_to "Show All", students_path(show_all: true), method: :get, class: "btn btn-secondary btn-sm" %>
+    </div>
+  <% end %>
+  
