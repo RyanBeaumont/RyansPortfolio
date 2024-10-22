@@ -7,6 +7,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root 'students#index'  # This sets the homepage to the index action of StudentsController
+
+
+  devise_for :students, controllers: {
+    registrations: 'students/registrations',
+    sessions: 'students/sessions',
+    passwords: 'students/passwords'
+  }
   
   resources :students
 end

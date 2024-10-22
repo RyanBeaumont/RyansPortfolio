@@ -1,15 +1,26 @@
 class Student < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
     has_one_attached :avatar, dependent: :purge_later
     validates :first_name, presence: true
     validates :last_name, presence: true
     validates :major, presence: true
     #validates :student_email, presence: true , uniqueness: true, format: { with: /\A[\w+\-.]+@msudenver\.edu\z/i, message: 'must be a valid email ending with @msudenver.edu' }
     validate :acceptable_image
+    validate :email_format
 
     VALID_MAJORS=["Computer Engineering BS","Computer Information Systems BS","Computer Science BS","Cybersecurity Major","Data Science and Machine Learning Major"]
     DATE_SEARCH_OPTIONS=["Don't Filter by Date","Graduate Before","Graduate After"]
     validates :major, inclusion:{in: VALID_MAJORS, message:"%{value} is not a valid major"}
 
+    def email_format
+        unless email =~ /\A[\w+\-.]+@msudenver\.edu\z/i
+            errors.add(:email, "Email must be @msudenver.edu")
+        end
+    end
 
     def acceptable_image
         return unless avatar.attached?
