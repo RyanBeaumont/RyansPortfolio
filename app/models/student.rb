@@ -3,7 +3,7 @@ class Student < ApplicationRecord
     validates :first_name, presence: true
     validates :last_name, presence: true
     validates :major, presence: true
-    validates :student_email, presence: true , uniqueness: true, format: { with: /\A[\w+\-.]+@msudenver\.edu\z/i, message: 'must be a valid email ending with @msudenver.edu' }
+    #validates :student_email, presence: true , uniqueness: true, format: { with: /\A[\w+\-.]+@msudenver\.edu\z/i, message: 'must be a valid email ending with @msudenver.edu' }
     validate :acceptable_image
 
     VALID_MAJORS=["Computer Engineering BS","Computer Information Systems BS","Computer Science BS","Cybersecurity Major","Data Science and Machine Learning Major"]
